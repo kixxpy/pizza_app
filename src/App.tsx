@@ -1,10 +1,12 @@
-import './App.css';
 import Button from './components/Button/Button';
+import Input from './components/Input/Input';
 
 function App() {
 	return (
 		<>
-			<Button onClick={() => alert('ты лох')}>I am button</Button>
+			<Button>I am button</Button>
+			<Button appearence='big'>I am button</Button>
+			<Input placeholder='Email' />
 		</>
 	);
 }

@@ -4,9 +4,10 @@
 	transition: background 0.25s;
 	border: none;
 	color: var(--white-color);
-	border-radius: 29px;
+	border-radius: 28px;
 	font-weight: 400;
 	font-style: normal;
+	padding: 10px;
 }
 .small {
 	font-size: 16px;
