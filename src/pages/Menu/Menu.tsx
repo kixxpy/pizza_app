@@ -1,12 +1,13 @@
-import { Link } from 'react-router-dom';
+import Headling from '../../components/Headling/Headling';
+import Search from '../../components/Search/Search';
+import styles from './Menu.module.css';
 
 export function Menu() {
 	return (
 		<>
-			Menu
-			<div>
-				<Link to='/'>Меню</Link>
-				<Link to='/cart'>Корзина</Link>
+			<div className={styles['head']}>
+				<Headling>Меню</Headling>
+				<Search placeholder='Введите блюдо или состав' />
 			</div>
 		</>
 	);
