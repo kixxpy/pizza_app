@@ -1,8 +1,8 @@
-export interface ProductCardProps {
+export interface Product {
 	id: number;
 	name: string;
-	description: string;
 	price: number;
+	ingredients: string[];
 	image: string;
 	rating: number;
 }

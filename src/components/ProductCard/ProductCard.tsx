@@ -8,7 +8,11 @@ function ProductCard(props: ProductCardProps) {
 			<div className={styles['card']}>
 				<div
 					className={styles['head']}
-					style={{ backgroundImage: `url('${props.image}')` }}
+					style={{
+						backgroundImage: `url('${props.image}')`,
+						backgroundRepeat: 'no-repeat',
+						backgroundSize: 'cover',
+					}}
 				>
 					<div className={styles['price']}>
 						{props.price}&nbsp;
@@ -27,7 +31,7 @@ function ProductCard(props: ProductCardProps) {
 					</div>
 				</div>
 				<div className={styles['footer']}>
-					<div className={styles['title']}>{props.title}</div>
+					<div className={styles['title']}>{props.name}</div>
 					<div className={styles['description']}>{props.description}</div>
 				</div>
 			</div>

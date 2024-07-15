@@ -43,6 +43,7 @@
 	color: var(--primary-color);
 }
 .rating {
+	color: var(--text-color);
 	position: absolute;
 	background-color: var(--white-color);
 	border-radius: 20px;
