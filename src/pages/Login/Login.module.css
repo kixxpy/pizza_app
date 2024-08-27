@@ -42,3 +42,8 @@
 .links a:hover {
 	color: var(--primary-hover-color);
 }
+.error {
+	background-color: var(--primary-color);
+	padding: 10px;
+	color: var(--white-color);
+}
