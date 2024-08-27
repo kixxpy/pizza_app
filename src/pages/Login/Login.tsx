@@ -1,10 +1,11 @@
 import axios, { AxiosError } from 'axios';
 import React, { FormEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Headling from '../../components/Headling/Headling';
 import Input from '../../components/Input/Input';
 import { PREFIX } from '../../helpers/API';
+import { LoginRespons } from '../../interfaces/auth.interface';
 import styles from './Login.module.css';
 
 export type LoginForm = {
@@ -18,6 +19,7 @@ export type LoginForm = {
 
 export function Login() {
 	const [error, setError] = React.useState<string | null>();
+	const navigete = useNavigate();
 
 	const submit = async (e: FormEvent) => {
 		e.preventDefault();
@@ -29,11 +31,12 @@ export function Login() {
 
 	const sentLogin = async (email: string, password: string) => {
 		try {
-			const { data } = await axios.post(`${PREFIX}/auth/login`, {
+			const { data } = await axios.post<LoginRespons>(`${PREFIX}/auth/login`, {
 				email,
 				password,
 			});
-			console.log(data);
+			localStorage.setItem('jwt', data.access_token);
+			navigete('/');
 		} catch (e) {
 			if (e instanceof AxiosError) {
 				setError(e.response?.data.message);
@@ -45,7 +48,11 @@ export function Login() {
 		<>
 			<div className={styles['login']}>
 				<Headling>Вход</Headling>
-				{error && <div className={styles['error']}>{error}</div>}
+				{error && (
+					<div className={styles['error']}>
+						Неверный логин или пароль <div>{error}</div>
+					</div>
+				)}
 				<form className={styles['form']} onSubmit={submit}>
 					<div className={styles['field']}>
 						<label htmlFor='email'>Ваш email</label>
