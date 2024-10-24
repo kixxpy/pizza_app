@@ -1,12 +1,17 @@
 import cn from 'classnames';
+import { useDispatch } from 'react-redux';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
+import { AppDispatch } from '../../store/store';
+import { userAction } from '../../store/user.slice';
 import styles from './Layout.module.css';
 
 export function Layout() {
 	const navigete = useNavigate();
+	const dispatch = useDispatch<AppDispatch>();
+
 	const logout = () => {
-		localStorage.removeItem('jwt');
+		dispatch(userAction.logout());
 		navigete('/auth/login');
 	};
 	return (
