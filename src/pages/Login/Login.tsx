@@ -5,7 +5,7 @@ import Button from '../../components/Button/Button';
 import Headling from '../../components/Headling/Headling';
 import Input from '../../components/Input/Input';
 import { AppDispatch, RootState } from '../../store/store';
-import { login } from '../../store/user.slice';
+import { login, userAction } from '../../store/user.slice';
 import styles from './Login.module.css';
 
 export type LoginForm = {
@@ -18,10 +18,9 @@ export type LoginForm = {
 };
 
 export function Login() {
-	const [error, setError] = React.useState<string | null>();
 	const navigete = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
-	const jwt = useSelector((s: RootState) => s.user.jwt);
+	const { loginErrorMassage, jwt } = useSelector((s: RootState) => s.user);
 
 	React.useEffect(() => {
 		if (jwt) {
@@ -31,7 +30,7 @@ export function Login() {
 
 	const submit = async (e: FormEvent) => {
 		e.preventDefault();
-		setError(null);
+		dispatch(userAction.clearErrorMesage());
 		const target = e.target as typeof e.target & LoginForm;
 		const { email, password } = target;
 		await sentLogin(email.value, password.value);
@@ -57,9 +56,9 @@ export function Login() {
 		<>
 			<div className={styles['login']}>
 				<Headling>Вход</Headling>
-				{error && (
+				{loginErrorMassage && (
 					<div className={styles['error']}>
-						Неверный логин или пароль <div>{error}</div>
+						Неверный логин или пароль <div>{loginErrorMassage}</div>
 					</div>
 				)}
 				<form className={styles['form']} onSubmit={submit}>
