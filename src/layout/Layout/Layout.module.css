@@ -57,3 +57,18 @@
 	padding: 40px 60px;
 	width: 100%;
 }
+.counting {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 5px;
+}
+.count {
+	padding: 2px;
+	color: var(--white-color);
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: var(--primary-color);
+}

@@ -11,6 +11,7 @@ export function Layout() {
 	const navigete = useNavigate();
 	const dispatch = useDispatch<AppDispatch>();
 	const userPorfile = useSelector((state: RootState) => state.user.profile);
+	const items = useSelector((state: RootState) => state.cart.items);
 
 	React.useEffect(() => {
 		dispatch(profile());
@@ -42,17 +43,25 @@ export function Layout() {
 						<img src='/menu-icon.svg' alt='Иконка меню' />
 						Меню
 					</NavLink>
-					<NavLink
-						to='/cart'
-						className={({ isActive }) =>
-							cn(styles['link'], {
-								[styles.active]: isActive,
-							})
-						}
-					>
-						<img src='/cart-icon.svg' alt='Иконка корзины' />
-						Корзина
-					</NavLink>
+
+					<div className={styles['counting']}>
+						<div>
+							<NavLink
+								to='/cart'
+								className={({ isActive }) =>
+									cn(styles['link'], {
+										[styles.active]: isActive,
+									})
+								}
+							>
+								<img src='/cart-icon.svg' alt='Иконка корзины' />
+								Корзина
+							</NavLink>
+						</div>
+						<div className={styles['count']}>
+							{items.reduce((acc, item) => (acc += item.count), 0)}
+						</div>
+					</div>
 				</div>
 				<Button className={styles['exit']} onClick={logout}>
 					<img src='/exit-icon.svg' alt='Иконка выхода' />
