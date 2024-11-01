@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
+import CartCount from '../../components/CartCount/CartCount';
 import { AppDispatch, RootState } from '../../store/store';
 import { profile, userAction } from '../../store/user.slice';
 import styles from './Layout.module.css';
@@ -12,6 +13,7 @@ export function Layout() {
 	const dispatch = useDispatch<AppDispatch>();
 	const userPorfile = useSelector((state: RootState) => state.user.profile);
 	const items = useSelector((state: RootState) => state.cart.items);
+	const quantityItemCart = items.reduce((acc, item) => (acc += item.count), 0);
 
 	React.useEffect(() => {
 		dispatch(profile());
@@ -58,8 +60,17 @@ export function Layout() {
 								Корзина
 							</NavLink>
 						</div>
-						<div className={styles['count']}>
-							{items.reduce((acc, item) => (acc += item.count), 0)}
+						<div
+							className={cn(styles['count'], {
+								[styles.nocount]: quantityItemCart <= 0,
+							})}
+						>
+							{quantityItemCart ||
+								(quantityItemCart > 0 && (
+									<CartCount>
+										{items.reduce((acc, item) => (acc += item.count), 0)}
+									</CartCount>
+								))}
 						</div>
 					</div>
 				</div>
