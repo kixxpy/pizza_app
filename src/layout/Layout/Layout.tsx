@@ -67,9 +67,7 @@ export function Layout() {
 						>
 							{quantityItemCart ||
 								(quantityItemCart > 0 && (
-									<CartCount>
-										{items.reduce((acc, item) => (acc += item.count), 0)}
-									</CartCount>
+									<CartCount>{quantityItemCart}</CartCount>
 								))}
 						</div>
 					</div>

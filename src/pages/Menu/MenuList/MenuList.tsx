@@ -16,7 +16,6 @@ export function MenuList({ products }: MenuListProps) {
 					image={p.image}
 				/>
 			))}
-			;
 		</div>
 	);
 }
