@@ -3,6 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import CartItem from '../../components/CartItem/CartItem';
 import Headling from '../../components/Headling/Headling';
+import MessageBlock from '../../components/MessageBlock/MessageBlock';
 import { PREFIX } from '../../helpers/API';
 import { Product } from '../../interfaces/product.interface';
 import { RootState } from '../../store/store';
@@ -29,7 +30,12 @@ export function Cart() {
 	return (
 		<>
 			<Headling className={styles['headling']}>Корзина</Headling>
-			{cartProducts.length === 0 && <div>Добавте товары в корзину</div>}
+			{cartProducts.length === 0 && (
+				<MessageBlock>
+					Ваша корзина пуста. Исправить это просто: выберите в каталоге
+					интересующий товар и нажмите кнопку "В корзину"
+				</MessageBlock>
+			)}
 			{items.map(i => {
 				const product = cartProducts.find(p => p.id === i.id);
 				if (!product) {

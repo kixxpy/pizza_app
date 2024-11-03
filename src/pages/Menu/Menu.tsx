@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import React, { ChangeEvent } from 'react';
 import Headling from '../../components/Headling/Headling';
-import MessageNoProducts from '../../components/MessageNoProducts/MessageNoProducts';
+import MessageBlock from '../../components/MessageBlock/MessageBlock';
 import Search from '../../components/Search/Search';
 import { PREFIX } from '../../helpers/API';
 import { Product } from '../../interfaces/product.interface';
@@ -55,7 +55,11 @@ export function Menu() {
 				{error && <div>Возникла ошибка - {error}</div>}
 				{!isLoading && products.length > 0 && <MenuList products={products} />}
 				{isLoading && <div>Загружаем продукты...</div>}
-				{!isLoading && products.length === 0 && <MessageNoProducts />}
+				{!isLoading && products.length === 0 && (
+					<MessageBlock>
+						К сожалению товар с таким названием не найден
+					</MessageBlock>
+				)}
 			</div>
 		</>
 	);
