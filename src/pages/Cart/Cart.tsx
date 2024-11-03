@@ -6,6 +6,7 @@ import Headling from '../../components/Headling/Headling';
 import { PREFIX } from '../../helpers/API';
 import { Product } from '../../interfaces/product.interface';
 import { RootState } from '../../store/store';
+import styles from './Cart.module.css';
 
 export function Cart() {
 	const [cartProducts, setCartProducts] = React.useState<Product[]>([]);
@@ -22,18 +23,19 @@ export function Cart() {
 
 	React.useEffect(() => {
 		loadAllItems();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [items]);
 
 	return (
 		<>
-			<Headling>Корзина</Headling>
+			<Headling className={styles['headling']}>Корзина</Headling>
 			{cartProducts.length === 0 && <div>Добавте товары в корзину</div>}
 			{items.map(i => {
-				const product = cartProducts.find(p => p.id === p.id);
+				const product = cartProducts.find(p => p.id === i.id);
 				if (!product) {
 					return;
 				}
-				return <CartItem count={i.count} {...product} />;
+				return <CartItem key={i.id} count={i.count} {...product} />;
 			})}
 		</>
 	);
