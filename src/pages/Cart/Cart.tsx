@@ -14,6 +14,23 @@ export function Cart() {
 	const [isLoadind, setIsLoading] = React.useState<boolean>(true);
 	const items = useSelector((s: RootState) => s.cart.items);
 
+	const total = items
+		.map(i => {
+			const product = cartProducts.find(p => p.id === i.id);
+			if (!product) {
+				return 0;
+			}
+			return i.count * product.price;
+		})
+		.reduce((acc, i) => (acc = acc + i), 0);
+
+	let delivery;
+	if (total > 999) {
+		delivery = 0;
+	} else {
+		delivery = 150;
+	}
+
 	setTimeout(() => {
 		setIsLoading(false);
 	}, 200);
@@ -49,6 +66,31 @@ export function Cart() {
 				}
 				return <CartItem key={i.id} count={i.count} {...product} />;
 			})}
+			<div className={styles['priceCart']}>
+				<div className={styles['text']}>
+					Итог
+					<div className={styles['price']}>
+						{total} <span>₽</span>
+					</div>
+				</div>
+				<hr className={styles['hr']} />
+				<div className={styles['sdsd']}>
+					<div className={styles['text']}>
+						Достовка
+						<div>
+							{delivery} <span>₽</span>
+						</div>
+					</div>
+					<hr className={styles['hr']} />
+					<div className={styles['text']}>
+						Итог ({items.length})
+						<div>
+							{total && total + delivery}
+							<span>₽</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 }
