@@ -1,18 +1,25 @@
 import axios from 'axios';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button/Button';
 import CartItem from '../../components/CartItem/CartItem';
 import Headling from '../../components/Headling/Headling';
 import MessageBlock from '../../components/MessageBlock/MessageBlock';
 import { PREFIX } from '../../helpers/API';
 import { Product } from '../../interfaces/product.interface';
-import { RootState } from '../../store/store';
+import { cartAction } from '../../store/cart.slice';
+import { AppDispatch, RootState } from '../../store/store';
 import styles from './Cart.module.css';
 
 export function Cart() {
 	const [cartProducts, setCartProducts] = React.useState<Product[]>([]);
 	const [isLoadind, setIsLoading] = React.useState<boolean>(true);
 	const items = useSelector((s: RootState) => s.cart.items);
+	const jwt = useSelector((s: RootState) => s.user.jwt);
+
+	const dispatch = useDispatch<AppDispatch>();
+	const navigate = useNavigate();
 
 	const total = items
 		.map(i => {
@@ -44,6 +51,21 @@ export function Cart() {
 		setCartProducts(res);
 	};
 
+	const checkout = async () => {
+		await axios.post(
+			`${PREFIX}/order`,
+			{
+				product: items,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${jwt}`,
+				},
+			}
+		);
+		dispatch(cartAction.clear());
+		navigate('/success');
+	};
 	React.useEffect(() => {
 		loadAllItems();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,15 +92,15 @@ export function Cart() {
 				<div className={styles['text']}>
 					Итог
 					<div className={styles['price']}>
-						{total} <span>₽</span>
+						{total} <span className={styles['rubsymbol']}>₽</span>
 					</div>
 				</div>
 				<hr className={styles['hr']} />
-				<div className={styles['sdsd']}>
+				<div className={styles['indentation']}>
 					<div className={styles['text']}>
 						Достовка
 						<div>
-							{delivery} <span>₽</span>
+							{delivery} <span className={styles['rubsymbol']}>₽</span>
 						</div>
 					</div>
 					<hr className={styles['hr']} />
@@ -86,10 +108,15 @@ export function Cart() {
 						Итог ({items.length})
 						<div>
 							{total && total + delivery}
-							<span>₽</span>
+							<span className={styles['rubsymbol']}>₽</span>
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className={styles['checkout']}>
+				<Button onClick={checkout} className={styles['btn']} appearence='big'>
+					Оформить
+				</Button>
 			</div>
 		</>
 	);

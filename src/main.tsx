@@ -13,6 +13,7 @@ import { Error } from './pages/Error/Error.tsx';
 import { Login } from './pages/Login/Login.tsx';
 import { Products } from './pages/Poduct/Product.tsx';
 import { Register } from './pages/Register/Register.tsx';
+import { Success } from './pages/Success/Success.tsx';
 import { store } from './store/store.ts';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
 				element: <Cart />,
 			},
 			{
+				path: '/success',
+				element: <Success />,
+			},
+			{
 				path: '/product/:id',
 				element: <Products />,
 				errorElement: <div>Ошибка</div>,
@@ -48,7 +53,6 @@ const router = createBrowserRouter([
 						data: axios
 							.get(`${PREFIX}/products/${params.id}`)
 							.then(data => data),
-							
 					});
 				},
 			},
@@ -72,7 +76,6 @@ const router = createBrowserRouter([
 		path: '*',
 		element: <Error />,
 	},
-
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

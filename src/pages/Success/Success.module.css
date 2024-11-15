@@ -1,0 +1,19 @@
+.success {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.text {
+	margin-top: -50px;
+	max-width: 440px;
+	gap: 10px;
+	font-weight: 300;
+	font-size: 31px;
+	line-height: 120%;
+	text-align: center;
+	color: var(--text-color);
+}
+.btn {
+	margin-top: 40px;
+}

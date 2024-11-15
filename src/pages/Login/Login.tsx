@@ -38,18 +38,6 @@ export function Login() {
 
 	const sentLogin = async (email: string, password: string) => {
 		dispatch(login({ email, password }));
-		// try {
-		// 	const { data } = await axios.post<LoginRespons>(`${PREFIX}/auth/login`, {
-		// 		email,
-		// 		password,
-		// 	});
-		// 	dispatch(userAction.addJwt(data.access_token));
-		// 	navigete('/');
-		// } catch (e) {
-		// 	if (e instanceof AxiosError) {
-		// 		setError(e.response?.data.message);
-		// 	}
-		// }
 	};
 
 	return (

@@ -21,6 +21,25 @@
 	font-weight: 400;
 	font-size: 19px;
 }
-.sdsd {
+.indentation {
 	padding-left: 20px;
+}
+.rubsymbol {
+	font-weight: 400;
+	font-size: 14px;
+	color: #9796a1;
+}
+.checkout {
+	margin-top: 80px;
+	max-width: 512px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.btn {
+	font-weight: 400;
+	font-size: 15px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-align: center;
 }
